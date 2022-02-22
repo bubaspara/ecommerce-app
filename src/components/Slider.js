@@ -2,6 +2,8 @@ import { useState } from "react";
 import styled from "styled-components";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import { sliderItems } from "../data";
+
 const Container = styled.div`
   width: 100%;
   height: 100vh;
@@ -78,6 +80,7 @@ const Button = styled.button`
 
 const Slider = () => {
   const [slideIndex, setSlideIndex] = useState(0);
+
   const handleClick = (direction) => {
     if (direction === "left") {
       setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2);
@@ -92,16 +95,18 @@ const Slider = () => {
         <ArrowLeftIcon />
       </Arrow>
       <Wrapper slideIndex={slideIndex}>
-        <Slide bg="fff">
-          <ImgContainer>
-            <Image src="" />
-          </ImgContainer>
-          <InfoContainer>
-            <Title>TITLE</Title>
-            <Desc>DESC</Desc>
-            <Button>SHOW NOW</Button>
-          </InfoContainer>
-        </Slide>
+        {sliderItems.map((item) => (
+          <Slide bg={item.bg}>
+            <ImgContainer>
+              <Image src={item.image} />
+            </ImgContainer>
+            <InfoContainer>
+              <Title>{item.title}</Title>
+              <Desc>{item.desc}</Desc>
+              <Button>SHOW NOW</Button>
+            </InfoContainer>
+          </Slide>
+        ))}
       </Wrapper>
       <Arrow direction="right" onClick={() => handleClick("right")}>
         <ArrowRightIcon />
